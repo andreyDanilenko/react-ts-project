@@ -1,6 +1,6 @@
 import React from 'react';
 
-function footer(): JSX.Element {
+function Footer(): JSX.Element {
   return (
     <footer className="footer container">
       <a className="footer__logo-link" href="main.html">
@@ -10,4 +10,4 @@ function footer(): JSX.Element {
   );
 }
 
-export default footer;
+export default Footer;
