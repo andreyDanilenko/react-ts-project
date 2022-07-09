@@ -1,6 +1,6 @@
 import React from 'react';
 
-function login() {
+function login(): JSX.Element {
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">
@@ -20,7 +20,7 @@ function login() {
         </section>
         <section className="locations locations--login locations--current">
           <div className="locations__item">
-            <a className="locations__item-link" href="#">
+            <a className="locations__item-link" href="main.html">
               <span>Amsterdam</span>
             </a>
           </div>

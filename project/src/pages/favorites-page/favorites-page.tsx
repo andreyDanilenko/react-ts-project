@@ -1,6 +1,6 @@
 import React from 'react';
 
-function FavoritesPage() {
+function FavoritesPage(): JSX.Element {
   return (
     <main className="page__main page__main--favorites">
       <div className="page__favorites-container container">
@@ -10,7 +10,7 @@ function FavoritesPage() {
             <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="#">
+                  <a className="locations__item-link" href="main.html">
                     <span>Amsterdam</span>
                   </a>
                 </div>
@@ -21,8 +21,8 @@ function FavoritesPage() {
                     <span>Premium</span>
                   </div>
                   <div className="favorites__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image"/>
+                    <a href="main.html">
+                      <img className="place-card__image" src="img/apartment-small-03.jpg" width="150" height="110" alt="Place image1"/>
                     </a>
                   </div>
                   <div className="favorites__card-info place-card__info">
@@ -45,7 +45,7 @@ function FavoritesPage() {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Nice, cozy, warm big bed apartment</a>
+                      <a href="main.html">Nice, cozy, warm big bed apartment</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
@@ -53,8 +53,8 @@ function FavoritesPage() {
 
                 <article className="favorites__card place-card">
                   <div className="favorites__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/room-small.jpg" width="150" height="110" alt="Place image"/>
+                    <a href="main.html">
+                      <img className="place-card__image" src="img/room-small.jpg" width="150" height="110" alt="Place image2"/>
                     </a>
                   </div>
                   <div className="favorites__card-info place-card__info">
@@ -77,7 +77,7 @@ function FavoritesPage() {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">Wood and stone place</a>
+                      <a href="main.html">Wood and stone place</a>
                     </h2>
                     <p className="place-card__type">Private room</p>
                   </div>
@@ -88,7 +88,7 @@ function FavoritesPage() {
             <li className="favorites__locations-items">
               <div className="favorites__locations locations locations--current">
                 <div className="locations__item">
-                  <a className="locations__item-link" href="#">
+                  <a className="locations__item-link" href="main.html">
                     <span>Cologne</span>
                   </a>
                 </div>
@@ -96,8 +96,8 @@ function FavoritesPage() {
               <div className="favorites__places">
                 <article className="favorites__card place-card">
                   <div className="favorites__image-wrapper place-card__image-wrapper">
-                    <a href="#">
-                      <img className="place-card__image" src="img/apartment-small-04.jpg" width="150" height="110" alt="Place image"/>
+                    <a href="main.html">
+                      <img className="place-card__image" src="img/apartment-small-04.jpg" width="150" height="110" alt="Place image3"/>
                     </a>
                   </div>
                   <div className="favorites__card-info place-card__info">
@@ -120,7 +120,7 @@ function FavoritesPage() {
                       </div>
                     </div>
                     <h2 className="place-card__name">
-                      <a href="#">White castle</a>
+                      <a href="main.html">White castle</a>
                     </h2>
                     <p className="place-card__type">Apartment</p>
                   </div>
