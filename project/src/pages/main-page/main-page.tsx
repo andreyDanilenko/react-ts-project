@@ -1,5 +1,5 @@
 import React from 'react';
-import PlaceCard from 'src/components/place-card/place-card';
+import { PlaceCard } from 'src/components';
 
 type Props = {
   rentalCount: number
