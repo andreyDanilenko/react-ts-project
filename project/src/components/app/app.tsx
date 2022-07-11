@@ -1,11 +1,11 @@
-import MainPage from 'src/pages/main-page/main-page';
-import Header from 'src/components/header/header';
+import { MainPage } from 'src/pages';
+import { Header } from 'src/components';
 
 type Props = {
-  rentalCount: number
-}
+  rentalCount: number;
+};
 
-const App = ({rentalCount}: Props): JSX.Element => (
+const App = ({ rentalCount }: Props): JSX.Element => (
   <div className="page page--gray page--main">
     <Header />
     <MainPage rentalCount={rentalCount} />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const login = (): JSX.Element => (
+const LoginPage = (): JSX.Element => (
   <main className="page__main page__main--login">
     <div className="page__login-container container">
       <section className="login">
@@ -28,4 +28,4 @@ const login = (): JSX.Element => (
   </main>
 );
 
-export default login;
+export default LoginPage;

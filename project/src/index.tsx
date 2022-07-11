@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from 'src/components/app';
+import { App } from 'src/components';
 
 const Setting = {
   RENTAL_COUNT: 30,
