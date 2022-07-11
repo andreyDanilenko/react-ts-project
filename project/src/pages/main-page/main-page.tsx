@@ -2,7 +2,7 @@ import React from 'react';
 import { PlaceCard } from 'src/components';
 
 type Props = {
-  rentalCount: number
+  rentalCount: number;
 };
 
 const MainPage = ({rentalCount}: Props): JSX.Element => (
