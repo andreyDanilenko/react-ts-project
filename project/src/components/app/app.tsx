@@ -1,5 +1,5 @@
-import MainPage from '../../pages/main-page/main-page';
-import Header from '../header/header';
+import MainPage from 'src/pages/main-page/main-page';
+import Header from 'src/components/header/header';
 
 type Props = {
   rentalCount: number
