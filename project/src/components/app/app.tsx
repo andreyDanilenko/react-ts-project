@@ -20,24 +20,13 @@ const App = (props: Props): JSX.Element => (
       <Route element={<Layout />}>
         <Route
           path={AppRoute.MainPage}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <MainPage rentalCount={props.rentalCount} />
-            </PrivateRoute>
-          }
+          element={<MainPage rentalCount={props.rentalCount} />}
         />
-        <Route
-          path={AppRoute.RoomPage}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <RoomPage />
-            </PrivateRoute>
-          }
-        />
+        <Route path={AppRoute.RoomPage} element={<RoomPage />} />
         <Route
           path={AppRoute.FavoritesPage}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               <FavoritesPage />
             </PrivateRoute>
           }
@@ -45,7 +34,7 @@ const App = (props: Props): JSX.Element => (
         <Route
           path={AppRoute.LoginPage}
           element={
-            <PublicRoute authorizationStatus={AuthorizationStatus.Auth}>
+            <PublicRoute authorizationStatus={AuthorizationStatus.NoAuth}>
               <LoginPage />
             </PublicRoute>
           }
