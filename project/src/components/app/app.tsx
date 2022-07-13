@@ -1,15 +1,48 @@
-import MainPage from 'src/pages/main-page/main-page';
-import Header from 'src/components/header/header';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import {
+  MainPage,
+  LoginPage,
+  RoomPage,
+  FavoritesPage,
+  NotFoundPage,
+  Layout,
+} from 'src/pages';
+import { PrivateRoute, PublicRoute } from 'src/components';
+import { AppRoute, AuthorizationStatus } from '../../utils/const';
 
 type Props = {
-  rentalCount: number
-}
+  rentalCount: number;
+};
 
-const App = ({rentalCount}: Props): JSX.Element => (
-  <div className="page page--gray page--main">
-    <Header />
-    <MainPage rentalCount={rentalCount} />
-  </div>
+const App = (props: Props): JSX.Element => (
+  <BrowserRouter>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route
+          path={AppRoute.MainPage}
+          element={<MainPage rentalCount={props.rentalCount} />}
+        />
+        <Route path={AppRoute.RoomPage} element={<RoomPage />} />
+        <Route
+          path={AppRoute.FavoritesPage}
+          element={
+            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <FavoritesPage />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path={AppRoute.LoginPage}
+          element={
+            <PublicRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <LoginPage />
+            </PublicRoute>
+          }
+        />
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
+  </BrowserRouter>
 );
 
 export default App;
