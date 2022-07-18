@@ -9,40 +9,50 @@ import {
 } from 'src/pages';
 import { PrivateRoute, PublicRoute } from 'src/components';
 import { AppRoute, AuthorizationStatus } from '../../utils/const';
+import { Offers, Reviews } from '../../types/offers';
 
 type Props = {
   rentalCount: number;
+  offers: Offers;
+  reviews: Reviews;
 };
 
-const App = (props: Props): JSX.Element => (
-  <BrowserRouter>
-    <Routes>
-      <Route element={<Layout />}>
-        <Route
-          path={AppRoute.MainPage}
-          element={<MainPage rentalCount={props.rentalCount} />}
-        />
-        <Route path={AppRoute.RoomPage} element={<RoomPage />} />
-        <Route
-          path={AppRoute.FavoritesPage}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <FavoritesPage />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.LoginPage}
-          element={
-            <PublicRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <LoginPage />
-            </PublicRoute>
-          }
-        />
-      </Route>
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  </BrowserRouter>
-);
+const App = (props: Props): JSX.Element => {
+  // eslint-disable-next-line no-console
+  console.log('offers', props.offers);
+  // eslint-disable-next-line no-console
+  console.log('reviews', props.reviews);
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route
+            path={AppRoute.MainPage}
+            element={<MainPage rentalCount={props.rentalCount} />}
+          />
+          <Route path={AppRoute.RoomPage} element={<RoomPage />} />
+          <Route
+            path={AppRoute.FavoritesPage}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <FavoritesPage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={AppRoute.LoginPage}
+            element={
+              <PublicRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
