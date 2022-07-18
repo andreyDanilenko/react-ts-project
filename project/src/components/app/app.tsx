@@ -12,7 +12,6 @@ import { AppRoute, AuthorizationStatus } from '../../utils/const';
 import { Offers, Reviews } from '../../types/offers';
 
 type Props = {
-  rentalCount: number;
   offers: Offers;
   reviews: Reviews;
 };
@@ -29,7 +28,7 @@ const App = (props: Props): JSX.Element => {
         <Route element={<Layout />}>
           <Route
             path={AppRoute.MainPage}
-            element={<MainPage rentalCount={props.rentalCount} />}
+            element={<MainPage offers={props.offers} />}
           />
           <Route path={AppRoute.RoomPage} element={<RoomPage />} />
           <Route

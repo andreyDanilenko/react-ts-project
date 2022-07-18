@@ -52,7 +52,7 @@ export const offers = [
       'Heating'
     ],
     'host': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'img/apartment-02.jpg',
       'id': 3,
       'isPro': true,
       'name': 'Angelina'
@@ -128,7 +128,7 @@ export const offers = [
       'Heating'
     ],
     'host': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'img/apartment-03.jpg',
       'id': 3,
       'isPro': true,
       'name': 'Angelina'
