@@ -18,10 +18,7 @@ type Props = {
 
 const App = (props: Props): JSX.Element => {
   // eslint-disable-next-line no-console
-  console.log('offers', props.offers);
-  // eslint-disable-next-line no-console
-  console.log('reviews', props.reviews);
-
+  console.log(props.reviews);
   return (
     <BrowserRouter>
       <Routes>
