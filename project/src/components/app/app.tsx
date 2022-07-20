@@ -9,10 +9,10 @@ import {
 } from 'src/pages';
 import { PrivateRoute, PublicRoute } from 'src/components';
 import { AppRoute, AuthorizationStatus } from 'src/utils/const';
-import { Offers } from 'src/types/offers';
+import { Offer } from 'src/types/offers';
 
 type Props = {
-  offers: Offers;
+  offers: Offer[];
 };
 
 const App = (props: Props): JSX.Element => (

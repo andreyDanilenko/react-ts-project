@@ -1,9 +1,9 @@
 import React from 'react';
 import { PlaceCard } from 'src/components';
-import { Offers } from 'src/types/offers';
+import { Offer } from 'src/types/offers';
 
 type Props = {
-  offers: Offers;
+  offers: Offer[];
 };
 
 const MainPage = (props: Props): JSX.Element => (

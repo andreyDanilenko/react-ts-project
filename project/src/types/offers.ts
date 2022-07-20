@@ -45,7 +45,3 @@ export type Review = {
         name: string
      }
 }
-
-
-export type Reviews = Review[];
-export type Offers = Offer[];
