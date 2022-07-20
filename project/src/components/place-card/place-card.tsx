@@ -1,14 +1,7 @@
-/* eslint-disable no-console */
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Offer } from '../../types/offers';
+import { Offer } from 'src/types/offers';
 import { getUpperCase, getActiveClass } from 'src/utils/utils';
-
-const PlaceCardMark = (): JSX.Element => (
-  <div className="place-card__mark">
-    <span>Premium</span>
-  </div>
-);
+import PlaceCardMark from './place-card-mark';
 
 type Props = {
   offer: Offer;
@@ -21,7 +14,7 @@ const PlaceCard = (props: Props): JSX.Element => {
     <article className="cities__card place-card">
       {isPremium && <PlaceCardMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={`offer/${id}`}>
+        <Link to={`offer/${id}`} aria-label={title}>
           <img className="place-card__image" src={host.avatarUrl} width="260" height="200" alt="Place image1" />
         </Link>
       </div>
