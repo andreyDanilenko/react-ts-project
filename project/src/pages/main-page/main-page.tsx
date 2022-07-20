@@ -1,11 +1,12 @@
 import React from 'react';
 import { PlaceCard } from 'src/components';
+import { Offer } from 'src/types/offers';
 
 type Props = {
-  rentalCount: number;
+  offers: Offer[];
 };
 
-const MainPage = ({rentalCount}: Props): JSX.Element => (
+const MainPage = (props: Props): JSX.Element => (
   <main className="page__main page__main--index">
     <h1 className="visually-hidden">Cities</h1>
     <div className="tabs">
@@ -48,7 +49,7 @@ const MainPage = ({rentalCount}: Props): JSX.Element => (
       <div className="cities__places-container container">
         <section className="cities__places places">
           <h2 className="visually-hidden">Places</h2>
-          <b className="places__found">{ rentalCount } places to stay in Amsterdam</b>
+          <b className="places__found">{props.offers.length} places to stay in Amsterdam</b>
           <form className="places__sorting" action="#" method="get">
             <span className="places__sorting-caption">Sort by</span>
             <span className="places__sorting-type" tabIndex={0}>
@@ -77,13 +78,9 @@ const MainPage = ({rentalCount}: Props): JSX.Element => (
           </form>
           <div className="cities__places-list places__list tabs__content">
 
-            <PlaceCard/>
-            <PlaceCard/>
-            <PlaceCard/>
-            <PlaceCard/>
-            <PlaceCard/>
-            <PlaceCard/>
-            <PlaceCard/>
+            {
+              props.offers.map((offer) => <PlaceCard offer={offer} key={offer.id}/>)
+            }
 
           </div>
         </section>
@@ -94,5 +91,4 @@ const MainPage = ({rentalCount}: Props): JSX.Element => (
     </div>
   </main>
 );
-
 export default MainPage;

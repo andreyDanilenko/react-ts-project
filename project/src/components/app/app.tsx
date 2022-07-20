@@ -8,10 +8,11 @@ import {
   Layout,
 } from 'src/pages';
 import { PrivateRoute, PublicRoute } from 'src/components';
-import { AppRoute, AuthorizationStatus } from '../../utils/const';
+import { AppRoute, AuthorizationStatus } from 'src/utils/const';
+import { Offer } from 'src/types/offers';
 
 type Props = {
-  rentalCount: number;
+  offers: Offer[];
 };
 
 const App = (props: Props): JSX.Element => (
@@ -20,7 +21,7 @@ const App = (props: Props): JSX.Element => (
       <Route element={<Layout />}>
         <Route
           path={AppRoute.MainPage}
-          element={<MainPage rentalCount={props.rentalCount} />}
+          element={<MainPage offers={props.offers} />}
         />
         <Route path={AppRoute.RoomPage} element={<RoomPage />} />
         <Route

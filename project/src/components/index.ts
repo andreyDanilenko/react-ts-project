@@ -4,5 +4,7 @@ import Footer from './footer/footer';
 import PlaceCard from './place-card/place-card';
 import PrivateRoute from './private-route/private-route';
 import PublicRoute from './public-route/public-route';
+import ReviewItem from './review-item/review-item';
+import FormSubmit from './form-submit/form-submit';
 
-export {App, Header, Footer, PlaceCard, PrivateRoute, PublicRoute};
+export {App, Header, Footer, PlaceCard, PrivateRoute, PublicRoute, ReviewItem, FormSubmit};
