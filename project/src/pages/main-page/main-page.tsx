@@ -143,5 +143,6 @@ const MainPage = (props: Props): JSX.Element => {
         </div>
       </div>
     </main>
-  );};
+  );
+};
 export default MainPage;

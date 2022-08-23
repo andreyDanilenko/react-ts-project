@@ -12,7 +12,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <React.StrictMode>
-  <App offers={Setting.OFFERS}/>
-  // </React.StrictMode>,
+  <React.StrictMode>
+    <App offers={Setting.OFFERS}/>
+  </React.StrictMode>,
 );

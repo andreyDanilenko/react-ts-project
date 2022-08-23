@@ -2,6 +2,7 @@ import { useRef, useEffect } from 'react';
 import { Icon, Marker } from 'leaflet';
 import { useMap } from 'src/hooks';
 import { City, Point } from 'src/types/offers';
+import 'leaflet/dist/leaflet.css';
 
 type Props = {
     city: City
@@ -21,13 +22,11 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-const Map = ({ city, points, selectedPoint}: Props): JSX.Element => {
-  const mapRef = useRef(null);
-  // const [map, setMap] = useState<Map | null>(null);
-  const map = useMap(mapRef, city);
+function Map(props: Props): JSX.Element {
+  const {city, points, selectedPoint} = props;
 
-  // eslint-disable-next-line no-console
-  console.log(map, city, selectedPoint);
+  const mapRef = useRef(null);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
@@ -48,16 +47,7 @@ const Map = ({ city, points, selectedPoint}: Props): JSX.Element => {
     }
   }, [map, points, selectedPoint]);
 
-
-  return (
-    <div
-      style={{ height: '500px' }}
-      ref={mapRef}
-    >
-
-
-    </div>
-  );
-};
+  return <div style={{height: '100%'}} ref={mapRef}></div>;
+}
 
 export default Map;
