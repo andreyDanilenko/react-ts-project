@@ -6,49 +6,13 @@ type Props = {
   offers: Offer[];
 };
 
-export const POINTS: Point[] = [
-  {
-    title: 'Саундвью',
-    lat: 40.816881,
-    lng: -73.872768
-  },
-  {
-    title: 'Ферри Поинт',
-    lat: 40.814909,
-    lng: -73.830682
-  },
-  {
-    title: 'Бронкс',
-    lat: 40.862413,
-    lng: -73.879357
-  },
-  {
-    title: 'Инвуд-Хилл',
-    lat: 40.870817,
-    lng: -73.927112
-  },
-  {
-    title: 'Пелхэм-Бей-Парк',
-    lat: 40.877312,
-    lng: -73.807182
-  }
-];
-
-export const CITY = {
-  location: {
-    latitude: 40.877312,
-    longitude: -73.807182,
-    zoom: 10,
-  },
-  name: 'Saint-Petersburg',
-};
-
-
 const MainPage = (props: Props): JSX.Element => {
   const [selectedPoint] = useState<Point | undefined>(undefined);
   // eslint-disable-next-line no-console
-
+  const points = props.offers.map((offer) => ({title: offer.title, lat: offer.city.location.latitude, lng: offer.city.location.longitude }));
+  const city = props.offers[0].city;
   // eslint-disable-next-line no-console
+  console.log(props.offers);
 
   // const onListItemHover = (listItemName: string) => {
   //   const currentPoint = points.find((point) => point.title === listItemName);
@@ -137,7 +101,7 @@ const MainPage = (props: Props): JSX.Element => {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map city={CITY} points={POINTS} selectedPoint={selectedPoint}/>
+              <Map city={city} points={points} selectedPoint={selectedPoint}/>
             </section>
           </div>
         </div>
