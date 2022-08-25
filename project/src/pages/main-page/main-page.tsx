@@ -11,6 +11,7 @@ const MainPage = (props: Props): JSX.Element => {
   const points = props.offers.map((offer) => ({title: offer.title, lat: offer.city.location.latitude, lng: offer.city.location.longitude }));
   const city = props.offers[0].city;
 
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>

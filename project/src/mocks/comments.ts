@@ -5,7 +5,7 @@ export const reviews = [
     'id': 13,
     'rating': 4,
     'user': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'img/avatar-max.jpg',
       'id': 1,
       'isPro': false,
       'name': 'Oliver.conner'
@@ -17,7 +17,7 @@ export const reviews = [
     'id': 4,
     'rating': 5,
     'user': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'img/avatar-max.jpg',
       'id': 1,
       'isPro': false,
       'name': 'Oliver.conner'
@@ -29,7 +29,7 @@ export const reviews = [
     'id': 10,
     'rating': 5,
     'user': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'img/avatar-max.jpg',
       'id': 1,
       'isPro': false,
       'name': 'Oliver.conner'
@@ -41,7 +41,7 @@ export const reviews = [
     'id': 11,
     'rating': 3,
     'user': {
-      'avatarUrl': 'img/1.png',
+      'avatarUrl': 'img/avatar-max.jpg',
       'id': 1,
       'isPro': false,
       'name': 'Oliver.conner'
