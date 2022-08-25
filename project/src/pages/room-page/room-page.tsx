@@ -1,4 +1,4 @@
-import { FormSubmit, ReviewList, Map, PlaceCard } from 'src/components';
+import { FormSubmit, ReviewList, Map, PlacesList } from 'src/components';
 import { reviews } from 'src/mocks/comments';
 import { Offer } from 'src/types/offers';
 
@@ -144,12 +144,7 @@ const RoomPage = (props: Props): JSX.Element => {
       </section>
       <div className="container">
         <section className="near-places places">
-          <h2 className="near-places__title">Other places in the neighbourhood</h2>
-          <div className="near-places__list places__list">
-            {
-              props.offers.slice(0, 3).map((offer) => <PlaceCard offer={offer} key={offer.id}/>)
-            }
-          </div>
+          <PlacesList offers={props.offers.slice(0, 3)} title="Other places in the neighbourhood"/>
         </section>
       </div>
     </main>

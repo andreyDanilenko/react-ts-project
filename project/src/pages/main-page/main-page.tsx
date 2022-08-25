@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import { PlaceCard, Map } from 'src/components';
+import { useState } from 'react';
+import { Map, PlacesList } from 'src/components';
 import { Offer, Point } from 'src/types/offers';
 
 type Props = {
@@ -83,11 +83,7 @@ const MainPage = (props: Props): JSX.Element => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-
-              {
-                props.offers.map((offer) => <PlaceCard offer={offer} key={offer.id}/>)
-              }
-
+              <PlacesList offers={props.offers}/>
             </div>
           </section>
           <div className="cities__right-section">
