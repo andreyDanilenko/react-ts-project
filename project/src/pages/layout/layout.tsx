@@ -12,7 +12,7 @@ function getClassName(location: string):string {
   return 'page';
 }
 
-function LayoutPage() {
+const LayoutPage = (): JSX.Element => {
   const location = useLocation();
 
   return (
@@ -22,6 +22,6 @@ function LayoutPage() {
       {location.pathname === '/favorites' && <Footer/>}
     </div>
   );
-}
+};
 
 export default LayoutPage;
