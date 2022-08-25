@@ -8,18 +8,8 @@ type Props = {
 
 const MainPage = (props: Props): JSX.Element => {
   const [selectedPoint] = useState<Point | undefined>(undefined);
-  // eslint-disable-next-line no-console
   const points = props.offers.map((offer) => ({title: offer.title, lat: offer.city.location.latitude, lng: offer.city.location.longitude }));
   const city = props.offers[0].city;
-  // eslint-disable-next-line no-console
-  console.log(props.offers);
-
-  // const onListItemHover = (listItemName: string) => {
-  //   const currentPoint = points.find((point) => point.title === listItemName);
-
-  //   setSelectedPoint(currentPoint);
-  // };
-
 
   return (
     <main className="page__main page__main--index">
