@@ -4,13 +4,11 @@ import TabItem from './tab-item';
 type Props = {
     tabs: string[]
     selectedTab?: string
-    onChangeTab?: (city: string) => any;
+    onChangeTab?: (city: string) => void;
 }
 
 const TabsList = (props: Props) => {
   const {tabs, selectedTab, onChangeTab} = props;
-  // eslint-disable-next-line indent, no-console
-   console.log(tabs);
 
   return (
     <ul className="locations__list tabs__list">
