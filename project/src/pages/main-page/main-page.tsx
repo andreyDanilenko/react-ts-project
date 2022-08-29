@@ -1,6 +1,15 @@
 import { useState } from 'react';
-import { Map, PlacesList } from 'src/components';
+import { Map, PlacesList, TabsList } from 'src/components';
 import { Offer, Point } from 'src/types/offers';
+
+const CITIES_LIST = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
 
 type Props = {
   offers: Offer[];
@@ -8,47 +17,23 @@ type Props = {
 
 const MainPage = (props: Props): JSX.Element => {
   const [selectedPoint] = useState<Point | undefined>(undefined);
+  const [selectedCity, setSelectedCity] = useState<string>('Amsterdam');
   const points = props.offers.map((offer) => ({title: offer.title, lat: offer.city.location.latitude, lng: offer.city.location.longitude }));
   const city = props.offers[0].city;
 
+
+  const handleChangeCity = () => {
+    // eslint-disable-next-line no-console
+    console.log('sdsd');
+
+  };
 
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <ul className="locations__list tabs__list">
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="main.html">
-                <span>Paris</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="main.html">
-                <span>Cologne</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="main.html">
-                <span>Brussels</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a href="main.html" className="locations__item-link tabs__item tabs__item--active">
-                <span>Amsterdam</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="main.html">
-                <span>Hamburg</span>
-              </a>
-            </li>
-            <li className="locations__item">
-              <a className="locations__item-link tabs__item" href="main.html">
-                <span>Dusseldorf</span>
-              </a>
-            </li>
-          </ul>
+          <TabsList tabs={CITIES_LIST} selectedTab={selectedCity} onChangeTab={handleChangeCity}/>
         </section>
       </div>
       <div className="cities">
