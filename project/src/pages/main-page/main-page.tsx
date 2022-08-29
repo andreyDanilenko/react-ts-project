@@ -22,12 +22,9 @@ const MainPage = (props: Props): JSX.Element => {
   const city = props.offers[0].city;
 
 
-  const handleChangeCity = () => {
-    // eslint-disable-next-line no-console
-    console.log('sdsd');
-
+  const handleChangeCity = (select: string) => {
+    setSelectedCity(select);
   };
-
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>

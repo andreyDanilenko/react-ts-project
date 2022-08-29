@@ -4,7 +4,7 @@ import TabItem from './tab-item';
 type Props = {
     tabs: string[]
     selectedTab?: string
-    onChangeTab?: () => any;
+    onChangeTab?: (city: string) => any;
 }
 
 const TabsList = (props: Props) => {
