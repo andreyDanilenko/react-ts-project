@@ -2,7 +2,6 @@
 import { useMemo, useState } from 'react';
 import { Map, PlacesList, TabsList } from 'src/components';
 import { Offer, Point } from 'src/types/offers';
-import { useAppSelector } from 'src/hooks';
 import DefaultSelect from 'src/components/ui-kit/default-select/default-select';
 
 const CITIES_LIST = [
@@ -27,12 +26,13 @@ type Props = {
 };
 
 const MainPage = (props: Props): JSX.Element => {
-  const offers = useAppSelector((state) => state.offers);
-  console.log(offers);
+  const { offers } = props;
+
 
   const [selectedPoint] = useState<Point | undefined>(undefined);
   const [selectedCity, setSelectedCity] = useState('Amsterdam');
   const [selectedSort, setSelectedSort] = useState('Popular');
+
 
   const { points, filteredOffers, city } = useMemo(() => {
     const filteredList = offers.filter((offer) => offer.city.name === selectedCity);
@@ -77,7 +77,7 @@ const MainPage = (props: Props): JSX.Element => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{props.offers.length} places to stay in Amsterdam</b>
+            <b className="places__found">{sortedAndFilteredOffers.length} places to stay in Amsterdam</b>
             <DefaultSelect selects={SELECTS_LIST} selectedSelect={selectedSort} onSelectedSort={handleSelectedSort}/>
             <div className="cities__places-list places__list tabs__content">
               <PlacesList offers={sortedAndFilteredOffers} />

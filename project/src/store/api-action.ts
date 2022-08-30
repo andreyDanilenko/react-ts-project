@@ -3,7 +3,7 @@ import { AxiosInstance } from 'axios';
 import { Offer } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
 import { APIRoute } from 'src/utils/const';
-import { offersAction } from './action';
+import { errorAction, loadingAction, offersAction } from './action';
 
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -14,6 +14,19 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
     'data/offers',
     async (_arg, {dispatch, extra: api}) => {
       const {data} = await api.get<Offer[]>(APIRoute.Offers);
-      dispatch(offersAction(data));
+      dispatch(loadingAction(true));
+
+      try {
+        if (data) {
+          dispatch(offersAction(data));
+        } else {
+          throw new Error('error message');
+        }
+      } catch (error) {
+        const er = error instanceof Error ? error.message : error as string;
+        dispatch(errorAction(er));
+      } finally {
+        dispatch(loadingAction(false));
+      }
     },
   );
