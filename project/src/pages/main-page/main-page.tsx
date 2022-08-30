@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useMemo, useState } from 'react';
 import { Map, PlacesList, TabsList } from 'src/components';
 import { Offer, Point } from 'src/types/offers';
@@ -27,12 +26,10 @@ type Props = {
 };
 
 const MainPage = (props: Props): JSX.Element => {
-  const { loading, offers } = useAppSelector((state) => state.offersReducer);
+  const { offers } = useAppSelector((state) => state.offersReducer);
   const [selectedPoint] = useState<Point | undefined>(undefined);
   const [selectedCity, setSelectedCity] = useState('Amsterdam');
   const [selectedSort, setSelectedSort] = useState('Popular');
-  // eslint-disable-next-line no-console
-  console.log(loading, offers);
 
   const { points, filteredOffers, city } = useMemo(() => {
     const filteredList = offers.filter((offer) => offer.city.name === selectedCity);
