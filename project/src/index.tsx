@@ -3,9 +3,13 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { App } from 'src/components';
 import { offers } from './mocks/offers';
-import { setupStore } from './store';
+import { store } from './store';
+import { fetchOffers } from './store/api-action';
 
-const store = setupStore();
+store.dispatch(fetchOffers());
+// eslint-disable-next-line no-console
+console.log('store1', store);
+
 
 const Setting = {
   OFFERS: offers,

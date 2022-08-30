@@ -1,18 +1,15 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
-import offersReducer from './slices/offers-slice';
+import {configureStore} from '@reduxjs/toolkit';
+import {reducer} from './reducer';
+import {createAPI} from '../services/api';
 
+export const api = createAPI();
 
-const rootReducer = combineReducers({
-  offersReducer
+export const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api,
+      },
+    }),
 });
-
-export function setupStore() {
-  return configureStore({
-    reducer: rootReducer
-  });
-}
-
-
-export type RootState = ReturnType<typeof rootReducer>
-export type AppStore = ReturnType<typeof setupStore>
-export type AppDispatch = AppStore['dispatch']
