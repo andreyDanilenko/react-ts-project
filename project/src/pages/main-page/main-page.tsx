@@ -28,21 +28,22 @@ type Props = {
 const MainPage = (props: Props): JSX.Element => {
   const { offers } = props;
 
-
   const [selectedPoint] = useState<Point | undefined>(undefined);
   const [selectedCity, setSelectedCity] = useState('Amsterdam');
   const [selectedSort, setSelectedSort] = useState('Popular');
 
-
-  const { points, filteredOffers, city } = useMemo(() => {
+  const { filteredOffers, city } = useMemo(() => {
     const filteredList = offers.filter((offer) => offer.city.name === selectedCity);
 
     return {
       filteredOffers: filteredList,
-      points: filteredList.map((offer) => ({ title: offer.title, lat: offer.city.location.latitude, lng: offer.city.location.longitude })),
+      points: filteredList.map((offer) => ({ title: offer.title, lat: offer.location.latitude, lng: offer.location.longitude })),
       city: filteredList[0]?.city ?? {}
     };
   }, [offers, selectedCity]);
+
+  console.log(filteredOffers);
+
 
   const sortedAndFilteredOffers = useMemo(() => {
     switch (selectedSort) {
@@ -77,7 +78,7 @@ const MainPage = (props: Props): JSX.Element => {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{sortedAndFilteredOffers.length} places to stay in Amsterdam</b>
+            <b className="places__found">{sortedAndFilteredOffers.length} places to stay in {selectedCity}</b>
             <DefaultSelect selects={SELECTS_LIST} selectedSelect={selectedSort} onSelectedSort={handleSelectedSort}/>
             <div className="cities__places-list places__list tabs__content">
               <PlacesList offers={sortedAndFilteredOffers} />
@@ -85,7 +86,7 @@ const MainPage = (props: Props): JSX.Element => {
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map city={city} points={points} selectedPoint={selectedPoint} />
+              <Map city={city} offers={filteredOffers} selectedPoint={selectedPoint} />
             </section>
           </div>
         </div>
