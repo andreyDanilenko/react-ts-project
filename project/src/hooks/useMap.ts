@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-
 import { City } from 'src/types/offers';
 import {useEffect, useState, MutableRefObject, useRef} from 'react';
 import {Map, TileLayer} from 'leaflet';

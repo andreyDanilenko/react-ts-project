@@ -138,7 +138,7 @@ const RoomPage = (props: Props): JSX.Element => {
           </div>
         </div>
         <section className="property__map map">
-          <Map city={city} offers={К.offers} selectedPoint={undefined}/>
+          <Map city={city} offers={props.offers} selectedPoint={undefined}/>
         </section>
       </section>
       <div className="container">

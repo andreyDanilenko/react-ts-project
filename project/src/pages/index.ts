@@ -3,7 +3,7 @@ import LoginPage from './login-page/login-page';
 import MainPage from './main-page/main-page';
 import RoomPage from './room-page/room-page';
 import NotFoundPage from './not-found-page/not-found-page';
-import Layout from './layout/layout';
+import LayoutPage from './layout-page/layout-page';
 
 
-export {FavoritesPage, LoginPage, MainPage, RoomPage, NotFoundPage, Layout};
+export {FavoritesPage, LoginPage, MainPage, RoomPage, NotFoundPage, LayoutPage};

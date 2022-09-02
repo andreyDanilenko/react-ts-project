@@ -5,7 +5,7 @@ import {
   RoomPage,
   FavoritesPage,
   NotFoundPage,
-  Layout,
+  LayoutPage,
 } from 'src/pages';
 import { PrivateRoute, PublicRoute } from 'src/components';
 import { AppRoute, AuthorizationStatus } from 'src/utils/const';
@@ -25,7 +25,7 @@ const App = (): JSX.Element => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>
+        <Route element={<LayoutPage />}>
           <Route
             path={AppRoute.MainPage}
             element={<MainPage offers={offers} />}
