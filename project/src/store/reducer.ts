@@ -5,14 +5,14 @@ import { AuthorizationStatus } from 'src/utils/const';
 
 type InitialState = {
   offers: Offer[]
-  error: string
+  error: string | null,
   loading: boolean
   authorizationStatus: AuthorizationStatus,
 }
 
 const initialState: InitialState = {
   offers: [],
-  error: '',
+  error: null,
   loading: false,
   authorizationStatus: AuthorizationStatus.Unknown,
 };

@@ -5,8 +5,9 @@ import { AuthData } from 'src/types/auth-data';
 import { Offer } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
 import { UserData } from 'src/types/user-data';
-import { APIRoute, AuthorizationStatus } from 'src/utils/const';
+import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from 'src/utils/const';
 import { errorAction, loadingAction, offersAction, requireAuthorization } from './action';
+import {store} from './';
 
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -75,3 +76,13 @@ export const logoutAction = createAsyncThunk<void, undefined, {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     },
   );
+
+export const clearErrorAction = createAsyncThunk(
+  'data/error',
+  () => {
+    setTimeout(
+      () => store.dispatch(errorAction(null)),
+      TIMEOUT_SHOW_ERROR,
+    );
+  },
+);

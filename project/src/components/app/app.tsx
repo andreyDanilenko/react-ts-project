@@ -12,8 +12,7 @@ import { AppRoute } from 'src/utils/const';
 import { useAppSelector } from 'src/hooks';
 
 const App = (): JSX.Element => {
-  const {authorizationStatus} = useAppSelector((state) => state);
-  const {offers, loading, error} = useAppSelector((state) => state);
+  const {offers, loading, error, authorizationStatus} = useAppSelector((state) => state);
 
   switch (true) {
     case loading:
