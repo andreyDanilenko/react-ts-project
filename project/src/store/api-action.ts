@@ -1,9 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
+import { dropToken, saveToken } from 'src/services/token';
+import { AuthData } from 'src/types/auth-data';
 import { Offer } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
-import { APIRoute } from 'src/utils/const';
-import { errorAction, loadingAction, offersAction } from './action';
+import { UserData } from 'src/types/user-data';
+import { APIRoute, AuthorizationStatus } from 'src/utils/const';
+import { errorAction, loadingAction, offersAction, requireAuthorization } from './action';
 
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -28,5 +31,47 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
       } finally {
         dispatch(loadingAction(false));
       }
+    },
+  );
+
+export const checkAuthAction = createAsyncThunk<void, undefined, {
+    dispatch: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'user/checkAuth',
+    async (_arg, {dispatch, extra: api}) => {
+      try {
+        await api.get(APIRoute.Login);
+        dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      } catch {
+        dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      }
+    },
+  );
+
+export const loginAction = createAsyncThunk<void, AuthData, {
+    dispatch: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'user/login',
+    async ({login: email, password}, {dispatch, extra: api}) => {
+      const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+      saveToken(token);
+      dispatch(requireAuthorization(AuthorizationStatus.Auth));
+    },
+  );
+
+export const logoutAction = createAsyncThunk<void, undefined, {
+    dispatch: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'user/logout',
+    async (_arg, {dispatch, extra: api}) => {
+      await api.delete(APIRoute.Logout);
+      dropToken();
+      dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     },
   );

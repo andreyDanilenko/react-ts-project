@@ -1,18 +1,20 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {errorAction, loadingAction, offersAction} from './action';
+import {errorAction, loadingAction, offersAction, requireAuthorization} from './action';
 import { Offer } from 'src/types/offers';
-
+import { AuthorizationStatus } from 'src/utils/const';
 
 type InitialState = {
   offers: Offer[]
   error: string
   loading: boolean
+  authorizationStatus: AuthorizationStatus,
 }
 
 const initialState: InitialState = {
   offers: [],
   error: '',
   loading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -25,6 +27,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(errorAction, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
     });
 });
 
