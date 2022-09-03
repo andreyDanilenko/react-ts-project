@@ -8,11 +8,13 @@ import {
   LayoutPage,
 } from 'src/pages';
 import { PrivateRoute, PublicRoute } from 'src/components';
-import { AppRoute, AuthorizationStatus } from 'src/utils/const';
+import { AppRoute } from 'src/utils/const';
 import { useAppSelector } from 'src/hooks';
 
 const App = (): JSX.Element => {
+  const {authorizationStatus} = useAppSelector((state) => state);
   const {offers, loading, error} = useAppSelector((state) => state);
+
   switch (true) {
     case loading:
       return <p>Loading</p>;
@@ -34,7 +36,7 @@ const App = (): JSX.Element => {
           <Route
             path={AppRoute.FavoritesPage}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <FavoritesPage />
               </PrivateRoute>
             }
@@ -42,7 +44,7 @@ const App = (): JSX.Element => {
           <Route
             path={AppRoute.LoginPage}
             element={
-              <PublicRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PublicRoute authorizationStatus={authorizationStatus}>
                 <LoginPage />
               </PublicRoute>
             }
