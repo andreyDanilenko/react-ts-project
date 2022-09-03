@@ -38,8 +38,6 @@ function Map(props: Props): JSX.Element {
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-        // eslint-disable-next-line no-console
-        console.log(offer);
 
         marker
           .setIcon(

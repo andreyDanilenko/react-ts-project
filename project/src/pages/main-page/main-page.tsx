@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useMemo, useState } from 'react';
 import { Map, PlacesList, TabsList } from 'src/components';
 import { Offer, Point } from 'src/types/offers';
@@ -41,9 +40,6 @@ const MainPage = (props: Props): JSX.Element => {
       city: filteredList[0]?.city ?? {}
     };
   }, [offers, selectedCity]);
-
-  console.log(filteredOffers);
-
 
   const sortedAndFilteredOffers = useMemo(() => {
     switch (selectedSort) {

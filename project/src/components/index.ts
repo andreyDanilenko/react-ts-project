@@ -10,6 +10,7 @@ import ReviewList from './review-list/review-list';
 import FormSubmit from './form-submit/form-submit';
 import Map from './map/map';
 import TabsList from './tabs-list/tabs-list';
+import ErrorMessage from './error-message/error-message';
 
 
-export {App, Header, Footer, PlaceCard, PrivateRoute, PublicRoute, ReviewItem, FormSubmit, Map, ReviewList, PlacesList, TabsList};
+export {App, Header, Footer, PlaceCard, PrivateRoute, PublicRoute, ReviewItem, FormSubmit, Map, ReviewList, PlacesList, TabsList, ErrorMessage};
