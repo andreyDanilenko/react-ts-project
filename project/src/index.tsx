@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { App } from 'src/components';
-import { offers } from './mocks/offers';
+import { store } from './store';
+import { fetchOffers } from './store/api-action';
 
-const Setting = {
-  OFFERS: offers,
-};
+store.dispatch(fetchOffers());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
 root.render(
-  <React.StrictMode>
-    <App offers={Setting.OFFERS}/>
-  </React.StrictMode>,
+  <Provider store={store}>
+    {/* <React.StrictMode> */}
+    <App/>
+    {/* </React.StrictMode> */}
+  </Provider>,
 );

@@ -1,12 +1,12 @@
 import { useRef, useEffect } from 'react';
-import { Icon, Marker } from 'leaflet';
+import leaflet, { Icon, Marker } from 'leaflet';
 import { useMap } from 'src/hooks';
-import { City, Point } from 'src/types/offers';
+import { City, Offer, Point } from 'src/types/offers';
 import 'leaflet/dist/leaflet.css';
 
 type Props = {
     city: City
-    points: Point[]
+    offers: Offer[]
     selectedPoint: Point | undefined
 }
 
@@ -23,29 +23,43 @@ const currentCustomIcon = new Icon({
 });
 
 function Map(props: Props): JSX.Element {
-  const { city, points, selectedPoint } = props;
+  const { city, offers, selectedPoint } = props;
+  const { latitude, longitude, zoom } = city.location;
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
-      points.forEach((point) => {
+      map.setView({ lat: latitude, lng: longitude }, zoom, { animate: true, duration: 1 });
+
+      const markers = offers.map((offer) => {
         const marker = new Marker({
-          lat: point.lat,
-          lng: point.lng
+          lat: offer.location.latitude,
+          lng: offer.location.longitude,
         });
+        // eslint-disable-next-line no-console
+        console.log(offer);
 
         marker
           .setIcon(
-            selectedPoint !== undefined && point.title === selectedPoint.title
+            selectedPoint !== undefined && offer.city.name === selectedPoint.title
               ? currentCustomIcon
               : defaultCustomIcon
-          )
-          .addTo(map);
+          );
+
+        return marker;
       });
+
+      const layerGroup = leaflet.layerGroup(markers);
+
+      map.addLayer(layerGroup);
+
+      return () => {
+        map.removeLayer(layerGroup);
+      };
     }
-  }, [map, points, selectedPoint]);
+  }, [selectedPoint, latitude, longitude, map, zoom, offers]);
 
   return <div style={{height: '100%'}} ref={mapRef}></div>;
 }

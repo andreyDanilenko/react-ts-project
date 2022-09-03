@@ -31,7 +31,7 @@ export type Offer = {
     rating: number
     title: string
     type: string
-  };
+};
 
 export type City = {
     location: {
@@ -46,7 +46,7 @@ export type Point = {
         title: string,
         lat: number,
         lng: number
-      };
+};
 
 
 export type Review = {

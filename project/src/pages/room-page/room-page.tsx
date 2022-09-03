@@ -7,7 +7,6 @@ type Props = {
 }
 
 const RoomPage = (props: Props): JSX.Element => {
-  const points = props.offers.slice(0, 3).map((offer) => ({title: offer.title, lat: offer.city.location.latitude, lng: offer.city.location.longitude }));
   const city = props.offers[0].city;
 
   return (
@@ -139,7 +138,7 @@ const RoomPage = (props: Props): JSX.Element => {
           </div>
         </div>
         <section className="property__map map">
-          <Map city={city} points={points} selectedPoint={undefined}/>
+          <Map city={city} offers={props.offers} selectedPoint={undefined}/>
         </section>
       </section>
       <div className="container">
