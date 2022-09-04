@@ -1,12 +1,54 @@
-import { FormSubmit, ReviewList, Map, PlacesList } from 'src/components';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { FormSubmit, ReviewList, Map, PlacesList, LoadingBlock } from 'src/components';
+import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { reviews } from 'src/mocks/comments';
+import { store } from 'src/store';
+import { fetchOffer } from 'src/store/api-action';
 import { Offer } from 'src/types/offers';
+
+// const getOfferData = (id:string | undefined) => {
+//   store.dispatch(fetchOffer(id!));
+// };
 
 type Props = {
   offers: Offer[]
 }
 
 const RoomPage = (props: Props): JSX.Element => {
+  // eslint-disable-next-line no-console
+  const { id } = useParams();
+  const { offer, loading } = useAppSelector((state)=> state);
+  const dispatch = useAppDispatch();
+  // if(String(offer?.id) !== id) {
+  //   getOfferData(id);
+  // }
+  useEffect(()=> {
+    if (id !== offer?.id) {
+      dispatch(fetchOffer(id!));
+    }
+
+  }, [id, offer?.id]);
+
+  const name = 'me';
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log(name);
+  }, [name]);
+
+  const name1 = { value: 'me' };
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('232', name1);
+  }, [name1]);
+
+
+  if (loading && !offer) {
+    return <LoadingBlock />;
+  }
+  // eslint-disable-next-line no-console
+  console.log('offer', offer);
   const city = props.offers[0].city;
 
   return (

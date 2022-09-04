@@ -19,7 +19,6 @@ const SELECTS_LIST = [
   'Top rated first'
 ];
 
-
 type Props = {
   offers: Offer[];
 };

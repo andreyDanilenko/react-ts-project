@@ -1,13 +1,16 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosError } from 'axios';
 import { dropToken, saveToken } from 'src/services/token';
 import { AuthData } from 'src/types/auth-data';
 import { Offer } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
 import { UserData } from 'src/types/user-data';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from 'src/utils/const';
-import { errorAction, loadingAction, offersAction, requireAuthorization, userData } from './action';
+import { errorAction, loadingAction, offerAction, offersAction, requireAuthorization, userData } from './action';
 import {store} from './';
+
+// eslint-disable-next-line no-console
+console.log(store.getState());
 
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -35,6 +38,39 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
     },
   );
 
+
+export const fetchOffer = createAsyncThunk<void | Offer | AxiosError,
+string, {
+    dispatch: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'data/offer',
+    async (id, { dispatch, extra: api }) => {
+      const requestOffer = `${APIRoute.Offers}/${id}`;
+      const isOffer = String(store.getState().offer.id) !== id;
+      // eslint-disable-next-line no-console
+      console.log('actionID', id);
+      dispatch(loadingAction(true));
+      try {
+        if (isOffer) {
+          const { data } = await api.get<Offer>(requestOffer);
+          if (data) {
+            dispatch(offerAction(data));
+          } else {
+            throw new Error('error message');
+          }
+        }
+      } catch (error) {
+        const er = error instanceof Error ? error.message : error as string;
+        dispatch(errorAction(er));
+      } finally {
+        dispatch(loadingAction(false));
+      }
+    },
+  );
+
+
 export const checkAuthAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch,
     state: State,
@@ -59,7 +95,7 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   }>(
     'user/login',
     async ({login: email, password}, {dispatch, extra: api}) => {
-      const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+      const {data} = await api.post<UserData>(APIRoute.Login , {email, password});
       saveToken(data.token);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
       dispatch(userData(data));

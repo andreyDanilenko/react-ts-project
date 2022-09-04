@@ -11,6 +11,7 @@ import FormSubmit from './form-submit/form-submit';
 import Map from './map/map';
 import TabsList from './tabs-list/tabs-list';
 import ErrorMessage from './error-message/error-message';
+import LoadingBlock from './loading-block/loading-block';
 
 
-export {App, Header, Footer, PlaceCard, PrivateRoute, PublicRoute, ReviewItem, FormSubmit, Map, ReviewList, PlacesList, TabsList, ErrorMessage};
+export {App, Header, Footer, PlaceCard, PrivateRoute, PublicRoute, ReviewItem, FormSubmit, Map, ReviewList, PlacesList, TabsList, ErrorMessage, LoadingBlock};

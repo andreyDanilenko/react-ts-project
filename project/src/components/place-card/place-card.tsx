@@ -8,14 +8,17 @@ type Props = {
 };
 
 const PlaceCard = (props: Props): JSX.Element => {
-  const { host, isFavorite, isPremium, price, rating, title, type, id } = props.offer;
+  const { isFavorite, isPremium, price, rating, title, type, id, previewImage } = props.offer;
+  // eslint-disable-next-line no-console
+  console.log(props.offer);
+
 
   return (
     <article className="cities__card place-card">
       {isPremium && <PlaceCardMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`offer/${id}`} aria-label={title}>
-          <img className="place-card__image" src={host.avatarUrl} width="260" height="200" alt="Place image1" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image1" />
         </Link>
       </div>
       <div className="place-card__info">
