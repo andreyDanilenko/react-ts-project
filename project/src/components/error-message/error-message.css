@@ -3,6 +3,7 @@
     top: 30px;
     right: 30px;
     padding: 10px;
+    z-index: 10000;
     background-color: #d96666;
     color: white;
     border-radius: 5px;
