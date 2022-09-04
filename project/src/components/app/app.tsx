@@ -8,17 +8,17 @@ import {
   LayoutPage,
 } from 'src/pages';
 import { PrivateRoute, PublicRoute } from 'src/components';
-import { AppRoute } from 'src/utils/const';
+import { AppRoute, AuthorizationStatus } from 'src/utils/const';
 import { useAppSelector } from 'src/hooks';
+import LoadingBlock from '../loading-block/loading-block';
 
 const App = (): JSX.Element => {
-  const {offers, loading, authorizationStatus} = useAppSelector((state) => state);
+  const { offers, loading, authorizationStatus } = useAppSelector((state) => state);
 
-  switch (true) {
-    case loading:
-      return <p>Loading</p>;
-    case !offers.length:
-      return <p>No data</p>;
+  if (authorizationStatus === AuthorizationStatus.Unknown || loading) {
+    return (
+      <LoadingBlock/>
+    );
   }
 
   return (
@@ -50,6 +50,7 @@ const App = (): JSX.Element => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
-  );};
+  );
+};
 
 export default App;

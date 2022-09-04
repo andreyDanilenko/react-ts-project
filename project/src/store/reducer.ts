@@ -1,19 +1,22 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {errorAction, loadingAction, offersAction, requireAuthorization} from './action';
+import {errorAction, loadingAction, offersAction, requireAuthorization, userData} from './action';
 import { Offer } from 'src/types/offers';
 import { AuthorizationStatus } from 'src/utils/const';
+import { UserData } from 'src/types/user-data';
 
 type InitialState = {
+  user: UserData | null
   offers: Offer[]
-  error: string | null,
+  error: string | null
   loading: boolean
-  authorizationStatus: AuthorizationStatus,
+  authorizationStatus: AuthorizationStatus
 }
 
 const initialState: InitialState = {
+  user: null,
   offers: [],
   error: null,
-  loading: false,
+  loading: true,
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
@@ -30,6 +33,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action) => {
       state.authorizationStatus = action.payload;
+    })
+    .addCase(userData, (state, action) => {
+      state.user = action.payload;
     });
 });
 
