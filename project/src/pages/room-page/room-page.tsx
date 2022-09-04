@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormSubmit, ReviewList, Map, PlacesList, LoadingBlock } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { reviews } from 'src/mocks/comments';
-import { store } from 'src/store';
 import { fetchOffer } from 'src/store/api-action';
 import { Offer } from 'src/types/offers';
-
-// const getOfferData = (id:string | undefined) => {
-//   store.dispatch(fetchOffer(id!));
-// };
 
 type Props = {
   offers: Offer[]
@@ -23,28 +18,18 @@ const RoomPage = (props: Props): JSX.Element => {
   // if(String(offer?.id) !== id) {
   //   getOfferData(id);
   // }
+
   useEffect(()=> {
-    if (id !== offer?.id) {
-      dispatch(fetchOffer(id!));
+    if (id) {
+      dispatch(fetchOffer(id));
     }
+  }, [id]);
 
-  }, [id, offer?.id]);
-
-  const name = 'me';
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(name);
-  }, [name]);
-
-  const name1 = { value: 'me' };
-
-  useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log('232', name1);
-  }, [name1]);
+  // eslint-disable-next-line no-console
+  console.log('component', offer);
 
 
-  if (loading && !offer) {
+  if (loading) {
     return <LoadingBlock />;
   }
   // eslint-disable-next-line no-console

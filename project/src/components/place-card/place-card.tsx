@@ -9,10 +9,6 @@ type Props = {
 
 const PlaceCard = (props: Props): JSX.Element => {
   const { isFavorite, isPremium, price, rating, title, type, id, previewImage } = props.offer;
-  // eslint-disable-next-line no-console
-  console.log(props.offer);
-
-
   return (
     <article className="cities__card place-card">
       {isPremium && <PlaceCardMark />}

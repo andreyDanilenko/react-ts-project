@@ -9,8 +9,7 @@ import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from 'src/utils/con
 import { errorAction, loadingAction, offerAction, offersAction, requireAuthorization, userData } from './action';
 import {store} from './';
 
-// eslint-disable-next-line no-console
-console.log(store.getState());
+const state = store.getState();
 
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -48,23 +47,28 @@ string, {
     'data/offer',
     async (id, { dispatch, extra: api }) => {
       const requestOffer = `${APIRoute.Offers}/${id}`;
-      const isOffer = String(store.getState().offer.id) !== id;
+      const offer = state.offer;
+      const isOffer = String(offer) !== id;
       // eslint-disable-next-line no-console
-      console.log('actionID', id);
-      dispatch(loadingAction(true));
+      console.log(isOffer, offer);
+
+      if (!isOffer || !offer) {
+
+        dispatch(loadingAction(true));
+      }
+
       try {
-        if (isOffer) {
-          const { data } = await api.get<Offer>(requestOffer);
-          if (data) {
-            dispatch(offerAction(data));
-          } else {
-            throw new Error('error message');
-          }
+        const { data } = await api.get<Offer>(requestOffer);
+        if (data) {
+          dispatch(offerAction(data));
+          dispatch(loadingAction(false));
+        } else {
+          throw new Error('error message');
         }
+
       } catch (error) {
         const er = error instanceof Error ? error.message : error as string;
         dispatch(errorAction(er));
-      } finally {
         dispatch(loadingAction(false));
       }
     },

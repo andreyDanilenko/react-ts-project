@@ -5,7 +5,6 @@ import {PlaceCard} from 'src/components';
 type Props = {
     offers: Offer[]
     title?: string
-
 }
 
 const PlacesList = (props: Props ) => (
