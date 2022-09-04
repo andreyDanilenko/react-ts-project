@@ -12,15 +12,13 @@ import { AppRoute } from 'src/utils/const';
 import { useAppSelector } from 'src/hooks';
 
 const App = (): JSX.Element => {
-  const {offers, loading, error, authorizationStatus} = useAppSelector((state) => state);
+  const {offers, loading, authorizationStatus} = useAppSelector((state) => state);
 
   switch (true) {
     case loading:
       return <p>Loading</p>;
     case !offers.length:
       return <p>No data</p>;
-    case !!error:
-      return <p>Error</p>;
   }
 
   return (

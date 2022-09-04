@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { App } from 'src/components';
+import { App, ErrorMessage } from 'src/components';
 import { store } from './store';
-import { fetchOffers } from './store/api-action';
+import { fetchOffers, checkAuthAction } from './store/api-action';
 
+store.dispatch(checkAuthAction());
 store.dispatch(fetchOffers());
 
 const root = ReactDOM.createRoot(
@@ -12,9 +13,10 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <Provider store={store}>
-    <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ErrorMessage/>
       <App/>
-    </React.StrictMode>
-  </Provider>,
+    </Provider>,
+  </React.StrictMode>
 );
