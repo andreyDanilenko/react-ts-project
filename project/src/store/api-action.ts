@@ -6,11 +6,8 @@ import { Offer } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
 import { UserData } from 'src/types/user-data';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from 'src/utils/const';
-import { errorAction, loadingAction, offerAction, offersAction, requireAuthorization, userData } from './action';
+import { errorAction, loadingOffersAction, loadingOfferAction, offerAction, offersAction, requireAuthorization, userData } from './action';
 import {store} from './';
-
-const state = store.getState();
-
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch,
@@ -20,7 +17,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
     'data/offers',
     async (_arg, {dispatch, extra: api}) => {
       const {data} = await api.get<Offer[]>(APIRoute.Offers);
-      dispatch(loadingAction(true));
+      dispatch(loadingOffersAction(true));
 
       try {
         if (data) {
@@ -32,7 +29,7 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
         const er = error instanceof Error ? error.message : error as string;
         dispatch(errorAction(er));
       } finally {
-        dispatch(loadingAction(false));
+        dispatch(loadingOffersAction(false));
       }
     },
   );
@@ -47,21 +44,14 @@ string, {
     'data/offer',
     async (id, { dispatch, extra: api }) => {
       const requestOffer = `${APIRoute.Offers}/${id}`;
-      const offer = state.offer;
-      const isOffer = String(offer) !== id;
-      // eslint-disable-next-line no-console
-      console.log(isOffer, offer);
+      dispatch(loadingOfferAction(true));
 
-      if (!isOffer || !offer) {
-
-        dispatch(loadingAction(true));
-      }
 
       try {
         const { data } = await api.get<Offer>(requestOffer);
         if (data) {
           dispatch(offerAction(data));
-          dispatch(loadingAction(false));
+          dispatch(loadingOfferAction(false));
         } else {
           throw new Error('error message');
         }
@@ -69,7 +59,7 @@ string, {
       } catch (error) {
         const er = error instanceof Error ? error.message : error as string;
         dispatch(errorAction(er));
-        dispatch(loadingAction(false));
+        dispatch(loadingOfferAction(false));
       }
     },
   );

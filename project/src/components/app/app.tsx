@@ -13,9 +13,9 @@ import { useAppSelector } from 'src/hooks';
 import LoadingBlock from '../loading-block/loading-block';
 
 const App = (): JSX.Element => {
-  const { offers, loading, authorizationStatus } = useAppSelector((state) => state);
+  const { offers, loadingOffersAction, authorizationStatus } = useAppSelector((state) => state);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || loading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || loadingOffersAction) {
     return (
       <LoadingBlock/>
     );

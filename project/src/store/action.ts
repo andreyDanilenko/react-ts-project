@@ -8,7 +8,11 @@ export const offerAction = createAction<Offer>('data/offer');
 export const favoritesAction = createAction<Offer[]>('data/favorites');
 export const reviewsAction = createAction<Review[]>('data/reviews');
 
-export const loadingAction = createAction<boolean>('data/loading');
+export const loadingOffersAction = createAction<boolean>('data/loadingOffers');
+export const loadingOfferAction = createAction<boolean>('data/offerAction');
+export const loadingFavoritesAction = createAction<boolean>('data/favoritesAction');
+export const loadingReviewsAction = createAction<boolean>('data/reviewsAction');
+
 export const errorAction = createAction<string | null>('data/error');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');

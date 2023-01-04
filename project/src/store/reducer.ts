@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {errorAction, loadingAction, offerAction, offersAction, requireAuthorization, reviewsAction, userData} from './action';
+import {errorAction, loadingOffersAction, loadingOfferAction, offerAction, offersAction, requireAuthorization, reviewsAction, userData} from './action';
 import { Offer, Review } from 'src/types/offers';
 import { AuthorizationStatus } from 'src/utils/const';
 import { UserData } from 'src/types/user-data';
@@ -10,7 +10,8 @@ type InitialState = {
   offer: Offer | null
   reviews: Review[]
   error: string | null
-  loading: boolean
+  loadingOffersAction: boolean
+  loadingOfferAction: boolean
   authorizationStatus: AuthorizationStatus
 }
 
@@ -20,7 +21,8 @@ const initialState: InitialState = {
   offer: null,
   reviews: [],
   error: null,
-  loading: true,
+  loadingOffersAction: true,
+  loadingOfferAction: false,
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
@@ -38,8 +40,11 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(reviewsAction, (state, action) => {
       state.reviews = action.payload;
     })
-    .addCase(loadingAction, (state, action) => {
-      state.loading = action.payload;
+    .addCase(loadingOffersAction, (state, action) => {
+      state.loadingOffersAction = action.payload;
+    })
+    .addCase(loadingOfferAction, (state, action) => {
+      state.loadingOfferAction = action.payload;
     })
     .addCase(errorAction, (state, action) => {
       state.error = action.payload;

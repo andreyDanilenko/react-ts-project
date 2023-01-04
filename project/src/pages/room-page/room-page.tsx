@@ -11,13 +11,10 @@ type Props = {
 }
 
 const RoomPage = (props: Props): JSX.Element => {
-  // eslint-disable-next-line no-console
   const { id } = useParams();
-  const { offer, loading } = useAppSelector((state)=> state);
+  const { offer, loadingOfferAction } = useAppSelector((state)=> state);
   const dispatch = useAppDispatch();
-  // if(String(offer?.id) !== id) {
-  //   getOfferData(id);
-  // }
+
 
   useEffect(()=> {
     if (id) {
@@ -29,7 +26,7 @@ const RoomPage = (props: Props): JSX.Element => {
   console.log('component', offer);
 
 
-  if (loading) {
+  if (loadingOfferAction) {
     return <LoadingBlock />;
   }
   // eslint-disable-next-line no-console
