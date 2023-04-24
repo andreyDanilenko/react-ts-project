@@ -1,10 +1,12 @@
+/* eslint-disable no-console */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { FormSubmit, ReviewList, Map, PlacesList, LoadingBlock } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getUpperCase } from 'src/utils/utils';
 import { reviews } from 'src/mocks/comments';
-import { fetchOffer } from 'src/store/api-action';
+import { fetchOffer, fetchNearbyOffers } from 'src/store/api-action';
 import { Offer } from 'src/types/offers';
 
 type Props = {
@@ -13,38 +15,37 @@ type Props = {
 
 const RoomPage = (props: Props): JSX.Element => {
   const { id } = useParams();
-  const { offer, loadingOfferAction } = useAppSelector((state) => state);
+  const { offer, nearbyOffers, loadingOffer, loadingNearbyOffers } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
-
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOffer(id));
+      dispatch(fetchNearbyOffers(id));
     }
-  }, [id]);
+  }, []);
 
-  // eslint-disable-next-line no-console
-  console.log('component', offer);
 
-  const getImagePreviewItem = (image: string): JSX.Element =>
+  const getImagePreviewItem = (image: string, i: number): JSX.Element =>
     (
-      <div className="property__image-wrapper">
+      <div key={i} className="property__image-wrapper">
         <img className="property__image" src={image} alt="Photo_studio" />
       </div>
     );
 
-  const getSubjectItem = (subject: string): JSX.Element =>
+  const getSubjectItem = (subject: string, i: number): JSX.Element =>
     (
-      <li className="property__inside-item">
+      <li key={i} className="property__inside-item">
         {subject}
       </li>
     );
 
-  if (loadingOfferAction) {
+  if (loadingOffer) {
     return <LoadingBlock />;
   }
-  // eslint-disable-next-line no-console
+
   console.log('offer', offer);
+  console.log('componentNearby', nearbyOffers);
 
   const city = props.offers[0].city;
 
@@ -54,7 +55,7 @@ const RoomPage = (props: Props): JSX.Element => {
         <div className="property__gallery-container container">
           <div className="property__gallery">
             {
-              offer?.images.slice(0, 6).map((image) => getImagePreviewItem(image))
+              offer?.images.slice(0, 6).map((image, i) => getImagePreviewItem(image, i))
             }
           </div>
         </div>
@@ -66,7 +67,7 @@ const RoomPage = (props: Props): JSX.Element => {
               </div>}
             <div className="property__name-wrapper">
               <h1 className="property__name">
-                Beautiful &amp; luxurious studio at great location
+                {offer?.title}
               </h1>
               <button className="property__bookmark-button  button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
@@ -104,7 +105,7 @@ const RoomPage = (props: Props): JSX.Element => {
               <h2 className="property__inside-title">What&apos;s inside</h2>
               <ul className="property__inside-list">
                 {
-                  offer?.goods.slice(0, 6).map((subject) => getSubjectItem(subject))
+                  offer?.goods.slice(0, 6).map((subject, i) => getSubjectItem(subject, i))
                 }
               </ul>
             </div>
@@ -141,9 +142,10 @@ const RoomPage = (props: Props): JSX.Element => {
         </section>
       </section>
       <div className="container">
-        <section className="near-places places">
-          <PlacesList offers={props.offers.slice(0, 3)} title="Other places in the neighbourhood" />
-        </section>
+        {loadingNearbyOffers ? <LoadingBlock /> :
+          <section className="near-places places">
+            <PlacesList offers={nearbyOffers} title="Other places in the neighbourhood" />
+          </section>}
       </div>
     </main>
   );

@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
-import {StatusCodes} from 'http-status-codes';
+import { StatusCodes } from 'http-status-codes';
 import { processErrorHandle } from './process-error-handle';
 import {getToken} from './token';
 
@@ -42,7 +43,6 @@ export const createAPI = (): AxiosInstance => {
       throw error;
     }
   );
-
 
   return api;
 };

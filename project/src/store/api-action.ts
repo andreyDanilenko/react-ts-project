@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosError } from 'axios';
 import { dropToken, saveToken } from 'src/services/token';
@@ -6,7 +7,14 @@ import { Offer } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
 import { UserData } from 'src/types/user-data';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from 'src/utils/const';
-import { errorAction, loadingOffersAction, loadingOfferAction, offerAction, offersAction, requireAuthorization, userData } from './action';
+import { errorAction,
+  loadingOffersAction,
+  loadingOfferAction,
+  offerAction, offersAction,
+  requireAuthorization, userData,
+  nearbyOffersAction,
+  loadingNearbyOfferAction
+} from './action';
 import {store} from './';
 
 export const fetchOffers = createAsyncThunk<void, undefined, {
@@ -16,15 +24,11 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
   }>(
     'data/offers',
     async (_arg, {dispatch, extra: api}) => {
-      const {data} = await api.get<Offer[]>(APIRoute.Offers);
       dispatch(loadingOffersAction(true));
 
       try {
-        if (data) {
-          dispatch(offersAction(data));
-        } else {
-          throw new Error('error message');
-        }
+        const {data} = await api.get<Offer[]>(APIRoute.Offers);
+        dispatch(offersAction(data));
       } catch (error) {
         const er = error instanceof Error ? error.message : error as string;
         dispatch(errorAction(er));
@@ -34,6 +38,31 @@ export const fetchOffers = createAsyncThunk<void, undefined, {
     },
   );
 
+export const fetchNearbyOffers = createAsyncThunk<void | Offer | AxiosError,
+  string, {
+    dispatch: AppDispatch,
+    state: State,
+    extra: AxiosInstance
+  }>(
+    'data/nearbyOffers',
+    async (id, {dispatch, extra: api}) => {
+      const requestOffer = `${APIRoute.Offers}/${id}/nearby`;
+
+      dispatch(loadingNearbyOfferAction(true));
+
+      try {
+        const {data} = await api.get<Offer[]>(requestOffer);
+        console.log(data);
+        dispatch(nearbyOffersAction(data));
+
+      } catch (error) {
+        const er = error instanceof Error ? error.message : error as string;
+        dispatch(errorAction(er));
+      } finally {
+        dispatch(loadingNearbyOfferAction(false));
+      }
+    },
+  );
 
 export const fetchOffer = createAsyncThunk<void | Offer | AxiosError,
 string, {
@@ -64,7 +93,6 @@ string, {
     },
   );
 
-
 export const checkAuthAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch,
     state: State,
@@ -72,6 +100,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   }>(
     'user/checkAuth',
     async (_arg, {dispatch, extra: api}) => {
+
       try {
         const {data} = await api.get<UserData>(APIRoute.Login);
         dispatch(requireAuthorization(AuthorizationStatus.Auth));
