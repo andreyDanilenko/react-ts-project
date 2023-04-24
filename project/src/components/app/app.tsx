@@ -29,6 +29,7 @@ const App = (): JSX.Element => {
             path={AppRoute.MainPage}
             element={<MainPage offers={offers} />}
           />
+
           <Route path={AppRoute.RoomPage} element={<RoomPage offers={offers} />} />
           <Route
             path={AppRoute.FavoritesPage}

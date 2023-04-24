@@ -3,7 +3,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance, AxiosError } from 'axios';
 import { dropToken, saveToken } from 'src/services/token';
 import { AuthData } from 'src/types/auth-data';
-import { Offer } from 'src/types/offers';
+import { Offer, Review } from 'src/types/offers';
 import { AppDispatch, State } from 'src/types/state';
 import { UserData } from 'src/types/user-data';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from 'src/utils/const';
@@ -13,7 +13,9 @@ import { errorAction,
   offerAction, offersAction,
   requireAuthorization, userData,
   nearbyOffersAction,
-  loadingNearbyOfferAction
+  loadingNearbyOfferAction,
+  reviewsAction,
+  loadingReviewsAction
 } from './action';
 import {store} from './';
 
@@ -75,23 +77,45 @@ string, {
       const requestOffer = `${APIRoute.Offers}/${id}`;
       dispatch(loadingOfferAction(true));
 
-
       try {
         const { data } = await api.get<Offer>(requestOffer);
-        if (data) {
-          dispatch(offerAction(data));
-          dispatch(loadingOfferAction(false));
-        } else {
-          throw new Error('error message');
-        }
-
+        dispatch(offerAction(data));
       } catch (error) {
         const er = error instanceof Error ? error.message : error as string;
         dispatch(errorAction(er));
+      } finally {
         dispatch(loadingOfferAction(false));
       }
     },
   );
+
+export const fetchReviews = createAsyncThunk<void | Review | AxiosError,
+  string, {
+      dispatch: AppDispatch,
+      state: State,
+      extra: AxiosInstance
+    }>(
+      'data/reviews',
+      async (id, { dispatch, extra: api }) => {
+        const requestReview = `${APIRoute.Review}/${id}`;
+        dispatch(loadingReviewsAction(true));
+
+
+        try {
+          const { data } = await api.get<Review[]>(requestReview);
+          dispatch(reviewsAction(data));
+
+
+        } catch (error) {
+          const er = error instanceof Error ? error.message : error as string;
+          dispatch(errorAction(er));
+
+        } finally {
+          dispatch(loadingReviewsAction(false));
+        }
+      },
+    );
+
 
 export const checkAuthAction = createAsyncThunk<void, undefined, {
     dispatch: AppDispatch,

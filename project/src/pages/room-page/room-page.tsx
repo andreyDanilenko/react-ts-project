@@ -5,8 +5,7 @@ import { useParams } from 'react-router-dom';
 import { FormSubmit, ReviewList, Map, PlacesList, LoadingBlock } from 'src/components';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getUpperCase } from 'src/utils/utils';
-import { reviews } from 'src/mocks/comments';
-import { fetchOffer, fetchNearbyOffers } from 'src/store/api-action';
+import { fetchOffer, fetchNearbyOffers, fetchReviews } from 'src/store/api-action';
 import { Offer } from 'src/types/offers';
 
 type Props = {
@@ -15,13 +14,14 @@ type Props = {
 
 const RoomPage = (props: Props): JSX.Element => {
   const { id } = useParams();
-  const { offer, nearbyOffers, loadingOffer, loadingNearbyOffers } = useAppSelector((state) => state);
+  const { offer, nearbyOffers, loadingOffer, loadingNearbyOffers, reviews, loadingReviews} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (id) {
       dispatch(fetchOffer(id));
       dispatch(fetchNearbyOffers(id));
+      dispatch(fetchReviews(id));
     }
   }, []);
 
@@ -46,6 +46,7 @@ const RoomPage = (props: Props): JSX.Element => {
 
   console.log('offer', offer);
   console.log('componentNearby', nearbyOffers);
+  console.log('comments', reviews);
 
   const city = props.offers[0].city;
 
@@ -132,7 +133,7 @@ const RoomPage = (props: Props): JSX.Element => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <ReviewList reviews={reviews} />
+              { !loadingReviews && <ReviewList reviews={reviews} /> }
               <FormSubmit />
             </section>
           </div>

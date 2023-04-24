@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import { createReducer } from '@reduxjs/toolkit';
-import { errorAction, loadingOffersAction, loadingOfferAction, loadingNearbyOfferAction, nearbyOffersAction, offerAction, offersAction, requireAuthorization, reviewsAction, userData, } from './action';
+import { errorAction, loadingOffersAction, loadingOfferAction, loadingNearbyOfferAction, nearbyOffersAction, offerAction, offersAction, requireAuthorization, userData, reviewsAction,
+  loadingReviewsAction } from './action';
 import { Offer, Review } from 'src/types/offers';
 import { AuthorizationStatus } from 'src/utils/const';
 import { UserData } from 'src/types/user-data';
@@ -13,6 +15,7 @@ type InitialState = {
   error: string | null
   loadingOffers: boolean
   loadingNearbyOffers: boolean
+  loadingReviews: boolean
   loadingOffer: boolean
   authorizationStatus: AuthorizationStatus
 }
@@ -26,7 +29,9 @@ const initialState: InitialState = {
   error: null,
   loadingOffers: true,
   loadingNearbyOffers: false,
+  loadingReviews: false,
   loadingOffer: false,
+
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 
@@ -42,6 +47,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.offer = action.payload;
     })
     .addCase(reviewsAction, (state, action) => {
+      console.log(action.payload);
       state.reviews = action.payload;
     })
 
@@ -53,6 +59,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadingOfferAction, (state, action) => {
       state.loadingOffer = action.payload;
+    })
+    .addCase(loadingReviewsAction, (state, action) => {
+      state.loadingReviews = action.payload;
     })
 
     .addCase(errorAction, (state, action) => {
