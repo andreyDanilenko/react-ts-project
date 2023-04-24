@@ -30,7 +30,7 @@ const App = (): JSX.Element => {
             element={<MainPage offers={offers} />}
           />
 
-          <Route path={AppRoute.RoomPage} element={<RoomPage offers={offers} />} />
+          <Route path={AppRoute.RoomPage} element={<RoomPage />} />
           <Route
             path={AppRoute.FavoritesPage}
             element={

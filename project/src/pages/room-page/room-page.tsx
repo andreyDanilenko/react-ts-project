@@ -6,13 +6,9 @@ import { FormSubmit, ReviewList, Map, PlacesList, LoadingBlock } from 'src/compo
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getUpperCase } from 'src/utils/utils';
 import { fetchOffer, fetchNearbyOffers, fetchReviews } from 'src/store/api-action';
-import { Offer } from 'src/types/offers';
+import { Point } from 'src/types/offers';
 
-type Props = {
-  offers: Offer[]
-}
-
-const RoomPage = (props: Props): JSX.Element => {
+const RoomPage = (): JSX.Element => {
   const { id } = useParams();
   const { offer, nearbyOffers, loadingOffer, loadingNearbyOffers, reviews, loadingReviews} = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
@@ -44,11 +40,12 @@ const RoomPage = (props: Props): JSX.Element => {
     return <LoadingBlock />;
   }
 
-  console.log('offer', offer);
-  console.log('componentNearby', nearbyOffers);
-  console.log('comments', reviews);
-
-  const city = props.offers[0].city;
+  const city = offer?.city;
+  const point = {
+    title: offer?.city.name,
+    lat: offer?.city.location.latitude,
+    lng: offer?.city.location.longitude
+  } as Point;
 
   return (
     <main className="page__main page__main--property">
@@ -114,10 +111,10 @@ const RoomPage = (props: Props): JSX.Element => {
               <h2 className="property__host-title">Meet the host</h2>
               <div className="property__host-user user">
                 <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                  <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                  <img className="property__avatar user__avatar" src={offer?.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                 </div>
                 <span className="property__user-name">
-                  Angelina
+                  { offer?.host.name }
                 </span>
                 <span className="property__user-status">
                   Pro
@@ -125,11 +122,9 @@ const RoomPage = (props: Props): JSX.Element => {
               </div>
               <div className="property__description">
                 <p className="property__text">
-                  A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
+                  { offer?.description }
                 </p>
-                <p className="property__text">
-                  An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                </p>
+
               </div>
             </div>
             <section className="property__reviews reviews">
@@ -139,7 +134,10 @@ const RoomPage = (props: Props): JSX.Element => {
           </div>
         </div>
         <section className="property__map map">
-          <Map city={city} offers={props.offers} selectedPoint={undefined} />
+          {
+            city && nearbyOffers && <Map city={city} offers={nearbyOffers} selectedPoint={point} />
+          }
+
         </section>
       </section>
       <div className="container">
