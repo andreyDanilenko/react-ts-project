@@ -49,7 +49,6 @@ export const fetchNearbyOffers = createAsyncThunk<void | Offer | AxiosError,
     'data/nearbyOffers',
     async (id, {dispatch, extra: api}) => {
       const requestOffer = `${APIRoute.Offers}/${id}/nearby`;
-
       dispatch(loadingNearbyOfferAction(true));
 
       try {

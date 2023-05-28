@@ -63,7 +63,6 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(loadingReviewsAction, (state, action) => {
       state.loadingReviews = action.payload;
     })
-
     .addCase(errorAction, (state, action) => {
       state.error = action.payload;
     })
