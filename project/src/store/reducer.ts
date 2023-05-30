@@ -32,6 +32,7 @@ const initialState: InitialState = {
   loadingReviews: false,
   loadingOffer: false,
 
+
   authorizationStatus: AuthorizationStatus.Unknown,
 };
 

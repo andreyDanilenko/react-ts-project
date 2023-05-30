@@ -21,7 +21,7 @@ export enum APIRoute {
 
 export enum NameSpace {
     Offers = 'OFFERS',
-    Comments = 'COMMENTS',
+    Reviews = 'REVIEWS',
     User = 'USER',
     Auth = 'AUTH',
   }
