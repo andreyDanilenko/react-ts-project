@@ -2,7 +2,7 @@ import { NameSpace } from 'src/utils/const';
 import { State } from 'src/types/state';
 import { Offer } from 'src/types/offers';
 
-export const getOffer = (state: State): Offer => state[NameSpace.Offers].offer;
+export const getOffer = (state: State): Offer | null => state[NameSpace.Offers].offer;
 export const getOffers = (state: State): Offer[] => state[NameSpace.Offers].offers;
 export const getNearbyOffers = (state: State): Offer[] => state[NameSpace.Offers].nearbyOffers;
 
