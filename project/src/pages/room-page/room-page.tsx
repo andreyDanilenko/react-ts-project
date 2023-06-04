@@ -7,10 +7,17 @@ import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { getUpperCase } from 'src/utils/utils';
 import { fetchOffer, fetchNearbyOffers, fetchReviews } from 'src/store/api-action';
 import { Point } from 'src/types/offers';
+import { getLoadedNearbyOffers, getLoadedOffer, getNearbyOffers, getOffer } from 'src/store/offer-process/selectors';
+import { getLoadedReviews, getReviews } from 'src/store/review-process/selectors';
 
 const RoomPage = (): JSX.Element => {
   const { id } = useParams();
-  const { offer, nearbyOffers, loadingOffer, loadingNearbyOffers, reviews, loadingReviews} = useAppSelector((state) => state);
+  const offer = useAppSelector(getOffer);
+  const loadingReviews = useAppSelector(getLoadedReviews);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const loadingOffer = useAppSelector(getLoadedOffer);
+  const loadingNearbyOffers = useAppSelector(getLoadedNearbyOffers);
+  const reviews = useAppSelector(getReviews);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

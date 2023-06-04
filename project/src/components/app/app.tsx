@@ -11,9 +11,13 @@ import { PrivateRoute, PublicRoute } from 'src/components';
 import { AppRoute, AuthorizationStatus } from 'src/utils/const';
 import { useAppSelector } from 'src/hooks';
 import LoadingBlock from '../loading-block/loading-block';
+import { getLoadedOffers, getOffers } from 'src/store/offer-process/selectors';
+import { getAuthStatus } from 'src/store/auth-process/selectors';
 
 const App = (): JSX.Element => {
-  const { offers, loadingOffers, authorizationStatus } = useAppSelector((state) => state);
+  const offers = useAppSelector(getOffers);
+  const loadingOffers = useAppSelector(getLoadedOffers);
+  const authorizationStatus = useAppSelector(getAuthStatus);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || loadingOffers) {
     return (

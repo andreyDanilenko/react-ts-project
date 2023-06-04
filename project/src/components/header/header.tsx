@@ -1,10 +1,13 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'src/hooks';
 import { logoutAction } from 'src/store/api-action';
+import { getAuthStatus } from 'src/store/auth-process/selectors';
+import { getUser } from 'src/store/user-process/selectors';
 import { AppRoute, AuthorizationStatus } from 'src/utils/const';
 
 const Header = (): JSX.Element => {
-  const { authorizationStatus, user } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector(getAuthStatus);
+  const user = useAppSelector(getUser);
   const dispatch = useAppDispatch();
   const location = useLocation();
 
